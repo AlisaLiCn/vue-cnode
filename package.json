@@ -1,9 +1,8 @@
 {
-  "name": "vue-demo",
+  "name": "vue-demo-alisa-test",
   "version": "1.0.0",
   "description": "A Vue.js project",
   "author": "Alisa Li",
-  "private": true,
   "scripts": {
     "dev": "node build/dev-server.js",
     "start": "npm run dev",

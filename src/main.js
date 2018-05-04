@@ -25,7 +25,7 @@ new Vue({
   http: {
     root:'/',
     headers: {
-      USERID: 'abcdefg',
+      // USERID: 'abcdefg',
       "Content-Type": "text/html; charset=UTF-8"
     }
   }
