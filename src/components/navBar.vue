@@ -59,70 +59,11 @@
 </script>
 
 
-<!--<style lang="scss" scoped>-->
-<!--@import "../assets/sass/navbar";-->
-<!--</style>-->
-<style>
+<style lang="scss" scoped>
+  @import "../assets/sass/navbar";
 
-  .navbar {
-    width: 100%;
-    background-color: #444;
-    margin-bottom: 0;
-    font-size: 13px;
+  .test {
+    color: $nav-bar-bg-color;
   }
-
-  .navbar .navbar-inner {
-    width: 90%;
-    margin: auto;
-    padding: 5px;
-    min-height: 40px;
-  }
-
-  .navbar .navbar-container {
-    width: 100%;
-    min-width: 980px;
-    max-width: 1400px;
-    margin: 0 auto;
-    overflow: hidden;
-  }
-
-  .navbar-container::before {
-    display: table;
-    line-height: 0;
-    content: "";
-  }
-
-  .navbar .pull-right {
-    float: right;
-  }
-
-  .navbar .logo {
-    display: block;
-    float: left;
-    margin-left: -20px;
-    font-size: 20px;
-    width: 120px;
-    padding: 3px 20px;
-    height: 34px;
-    line-height: 34px;
-    color: #ccc;
-    font-weight: 700;
-  }
-
-  .navbar .nav li {
-    float: left;
-    line-height: 20px;
-  }
-
-  .navbar .nav a {
-    display: block;
-    padding: 10px 15px;
-    color: #ccc;
-  }
-
-  .navbar .nav a:hover {
-    color: #fff;
-    background-color: transparent;
-  }
-
 </style>
+
