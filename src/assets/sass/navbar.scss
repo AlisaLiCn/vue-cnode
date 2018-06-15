@@ -1,0 +1,12 @@
+@import "theme";
+
+.navbar {
+  width: 100%;
+  background-color: $nav-bar-bg-color;
+  .navbar-inner {
+    width: 90%;
+    margin: 0 auto;
+    padding: 5px;
+  }
+}
+
