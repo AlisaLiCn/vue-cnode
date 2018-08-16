@@ -1,22 +1,25 @@
 // The Vue build version to load with the `import` command
 // (runtime-only or standalone) has been set in webpack.base.conf with an alias.
-import Vue from 'vue';
+import Vue from 'vue'
+import App from './App'
+import router from './router'
+// import Vuex from 'vuex';
+import ElementUI from 'element-ui';
+import 'element-ui/lib/theme-chalk/index.css';
 
-import App from './App.vue';
-import router from './router';
+Vue.use(ElementUI);
 
-Vue.config.productionTip = false;
+Vue.config.productionTip = false
+
+import { formatTab, formatTime } from '@/lib/filters';
+Vue.filter('formatTab', formatTab);
+Vue.filter('formatTime', formatTime);
+
 
 /* eslint-disable no-new */
 new Vue({
   el: '#app',
   router,
-  template: '<App/>',
-  components: {App},
-  http: {
-    root: '/',
-    headers: {
-      "Content-Type": "text/html; charset=UTF-8"
-    }
-  }
-});
+  components: { App },
+  template: '<App/>'
+})

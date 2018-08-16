@@ -1,31 +1,75 @@
 <template>
-  <div>
-    <article-list></article-list>
-  </div>
+    <div class="main">
+      <div class="content">
+        <topic-header :currentTab = "currentTab"></topic-header>
+        <topic-list :currentTab = "currentTab" :list = "list"></topic-list>
+        <div class="pagination-wrapper" v-if="list.length">
+          <el-pagination
+            background
+            layout="prev, pager, next"
+            :total="1000"
+            @current-change="handleCurrentChange">
+          </el-pagination>
+        </div>
+      </div>
+    </div>
 </template>
 
 <script>
-  import Vue from 'Vue';
-  import axios from 'axios';
-  import ArticleList from "../components/articleList.vue";
+import TopicHeader from "@/components/TopicHeader";
+import TopicList from "@/components/TopicList";
 
-  const url = 'https://cnodejs.org/api/v1';
+import { getTopics } from "@/api/index";
 
-  export default {
-    components: {ArticleList},
-    name: 'home',
-    created() {
-//      this.getArticles();
+export default {
+  name: "Home",
+  components: {
+    TopicHeader,
+    TopicList
+  },
+  created() {
+    this.getList();
+  },
+  mounted() {},
+  data() {
+    return {
+      page: 1,
+      limit: 40,
+      currentTab: "all",
+      list: []
+    };
+  },
+  methods: {
+    async getList() {
+      this.list = await getTopics({
+        page: this.page || 1,
+        tab: this.currentTab || "all",
+        limit: this.limit || 40
+      });
+      console.log(this.list);
     },
-    data() {
-      return {
-//        articleList: []
-      }
+    handleCurrentChange(val) {
+      this.page = val;
+    }
+  },
+  watch: {
+    "$route.query.tab": function(newVal, oldVal) {
+      console.log("tab change:", newVal, oldVal);
+      this.currentTab = newVal;
+      this.getList();
     },
-    methods: {}
+    page: function() {
+      this.getList();
+    }
   }
+};
 </script>
 
-<style>
-
+<!-- Add "scoped" attribute to limit CSS to this component only -->
+<style lang="scss" scoped>
+@import "../../src/assets/common.scss";
+.pagination-wrapper {
+  text-align: left;
+  background: #fff;
+}
 </style>

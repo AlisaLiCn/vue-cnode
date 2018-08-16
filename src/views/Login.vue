@@ -7,10 +7,10 @@
 
 <script>
 export default {
-  name: 'About',
+  name: 'Login',
   data () {
     return {
-      msg: 'about page'
+      msg: 'Login page'
     }
   }
 }
