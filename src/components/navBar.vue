@@ -12,7 +12,7 @@
 export default {
   name: "NavBar",
   data() {
-    return {};
+    return {}; 
   }
 };
 </script>

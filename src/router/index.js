@@ -1,10 +1,9 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-import Home from '@/views/Home'
-import About from '@/views/About'
-import Login from '@/views/Login'
-import TopicDetail from '@/views/TopicDetail'
-
+import Home from '@/views/Home.vue'
+import About from '@/views/About.vue'
+import Login from '@/views/Login.vue'
+import TopicDetail from '@/views/TopicDetail.vue'
 
 Vue.use(Router)
 
