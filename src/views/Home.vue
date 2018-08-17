@@ -1,5 +1,8 @@
 <template>
     <div class="main">
+      <div class="sidebar">
+          <user-card :header="siderHeader" :userInfo="userInfo"></user-card>
+      </div>
       <div class="content">
         <topic-header :currentTab = "currentTab"></topic-header>
         <topic-list :currentTab = "currentTab" :list = "list"></topic-list>
@@ -18,21 +21,26 @@
 <script>
 import TopicHeader from "@/components/TopicHeader";
 import TopicList from "@/components/TopicList";
+import UserCard from "@/components/UserCard";
 
-import { getTopics } from "@/api/index";
+import { getTopics, getUserInfo } from "@/api/index";
 
 export default {
   name: "Home",
   components: {
     TopicHeader,
-    TopicList
+    TopicList,
+    UserCard
   },
   created() {
     this.getList();
+    this.getLoginUserInfo();
   },
   mounted() {},
   data() {
     return {
+      siderHeader: "个人信息",
+      userInfo: {},
       page: 1,
       limit: 40,
       currentTab: "all",
@@ -46,7 +54,10 @@ export default {
         tab: this.currentTab || "all",
         limit: this.limit || 40
       });
-      console.log(this.list);
+    },
+    async getLoginUserInfo() {
+      this.userInfo = await getUserInfo({ loginname: "AlisaLiCn" });
+      console.log(this.userInfo);
     },
     handleCurrentChange(val) {
       this.page = val;

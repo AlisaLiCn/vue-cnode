@@ -1,7 +1,8 @@
 <template>
   <div class="navbar-wrapper">
       <ul>
-          <li><router-link :to="{name: 'Login'}">登录</router-link></li>
+          <!-- <li><router-link :to="{name: 'Login'}">登录</router-link></li> -->
+          <li><router-link >退出</router-link></li>
           <li><router-link :to="{name: 'About'}">关于</router-link></li>
           <li><router-link :to="{name: 'Home'}">首页</router-link></li>
       </ul>

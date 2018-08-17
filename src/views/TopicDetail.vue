@@ -1,5 +1,8 @@
 <template>
   <div class="main">
+    <div class="sidebar">
+          <user-card :header="siderHeader" :userInfo="userInfo"></user-card>
+      </div>
     <div class="content">
       <div class="topic">
         <div class="topic-header" >
@@ -41,16 +44,21 @@
 </template>
 
 <script>
-import { getTopicById } from "@/api/index";
+import UserCard from "@/components/UserCard";
+import { getTopicById, getUserInfo } from "@/api/index";
 export default {
   name: "TopicDetail",
-  components: {},
+  components: {
+    UserCard
+  },
   created() {
     console.log(this.$route.params);
     this.getTopicById();
   },
   data() {
     return {
+      siderHider: "作者",
+      userInfo: {},
       topicData: {
         author: {
           loginname: null
@@ -62,6 +70,9 @@ export default {
     async getTopicById() {
       this.topicData = await getTopicById({ id: this.$route.params.id });
       console.log("topicData", this.topicData);
+      this.userInfo = await getUserInfo({
+        loginname: this.topicData.author.loginname
+      });
     }
   }
 };
