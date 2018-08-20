@@ -14,9 +14,8 @@
         <span class="last-active-time">{{topic.last_reply_at | formatTime}}</span>
       </div>
       <div class="title-wrapper left">
-        <span v-if="topic.top" class="put-top">置顶</span>
-        <span v-else-if="topic.good " class="put-top">精华</span>
-        <span v-else-if="currentTab!= topic.tab" class="tab">{{topic.tab | formatTab}}</span>
+        <span :class="formatTab(topic.tab,topic.top,topic.good,true)" 
+              v-text="formatTab(topic.tab, topic.top,topic.good,false)"></span>
         <router-link class="title" v-text="topic.title" :to="{name: 'TopicDetail',params:{id: topic.id}}"></router-link>
       </div>
     </div>
@@ -25,6 +24,7 @@
 
 <script>
 import { getTopics } from "@/api/index";
+import utils from "@/lib/utils";
 export default {
   name: "TopicList",
   created() {},
@@ -35,7 +35,9 @@ export default {
   data() {
     return {};
   },
-  methods: {}
+  methods: {
+    formatTab: utils.formatTab
+  }
 };
 </script>
 
