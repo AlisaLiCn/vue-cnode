@@ -1,7 +1,7 @@
 <template>
   <div class="main">
     <div class="sidebar">
-          <user-card :header="siderHeader" :userInfo="userInfo"></user-card>
+          <user-card :header="siderHeader" :userInfo="loginUserInfo"></user-card>
       </div>
     <div class="content">
       <div class="topic">
@@ -45,19 +45,23 @@
 
 <script>
 import UserCard from "@/components/UserCard";
-import { getTopicById, getUserInfo } from "@/api/index";
+import { getTopicById } from "@/api/index";
+import { mapState, mapActions } from "vuex";
 export default {
   name: "TopicDetail",
   components: {
     UserCard
   },
+  computed: {
+    ...mapState(["loginUserInfo"])
+  },
   created() {
     console.log(this.$route.params);
-    this.getTopicById();
+    this.refresh();
   },
   data() {
     return {
-      siderHider: "作者",
+      siderHeader: "作者",
       userInfo: {},
       topicData: {
         author: {
@@ -67,12 +71,11 @@ export default {
     };
   },
   methods: {
-    async getTopicById() {
+    ...mapActions(["getLoginUserInfo"]),
+    async refresh() {
       this.topicData = await getTopicById({ id: this.$route.params.id });
       console.log("topicData", this.topicData);
-      this.userInfo = await getUserInfo({
-        loginname: this.topicData.author.loginname
-      });
+      this.getLoginUserInfo(this.topicData.author.loginname);
     }
   }
 };

@@ -1,12 +1,12 @@
 <template>
     <div class="main">
       <div class="sidebar">
-          <user-card :header="siderHeader" :userInfo="userInfo"></user-card>
+          <user-card :header="siderHeader" :userInfo="loginUserInfo"></user-card>
       </div>
       <div class="content">
         <topic-header :currentTab = "currentTab"></topic-header>
-        <topic-list :currentTab = "currentTab" :list = "list"></topic-list>
-        <div class="pagination-wrapper" v-if="list.length">
+        <topic-list :currentTab = "currentTab" :list = "topics"></topic-list>
+        <div class="pagination-wrapper" v-if="topics.length">
           <el-pagination
             background
             layout="prev, pager, next"
@@ -23,6 +23,7 @@ import TopicHeader from "@/components/TopicHeader";
 import TopicList from "@/components/TopicList";
 import UserCard from "@/components/UserCard";
 
+import { mapState, mapActions } from "vuex";
 import { getTopics, getUserInfo } from "@/api/index";
 
 export default {
@@ -32,9 +33,11 @@ export default {
     TopicList,
     UserCard
   },
+  computed: {
+    ...mapState(["loginUserInfo", "topics"])
+  },
   created() {
-    this.getList();
-    this.getLoginUserInfo();
+    this.refresh();
   },
   mounted() {},
   data() {
@@ -48,16 +51,13 @@ export default {
     };
   },
   methods: {
-    async getList() {
-      this.list = await getTopics({
-        page: this.page || 1,
-        tab: this.currentTab || "all",
-        limit: this.limit || 40
-      });
+    ...mapActions(["getLoginUserInfo", "getTopics"]),
+    refresh() {
+      this.getLoginUserInfo("AlisaLiCn");
+      this.getTopics({ page: this.page, limit: 40, tab: this.currentTab });
     },
-    async getLoginUserInfo() {
-      this.userInfo = await getUserInfo({ loginname: "AlisaLiCn" });
-      console.log(this.userInfo);
+    refreshTopics() {
+      this.getTopics({ page: this.page, limit: 40, tab: this.currentTab });
     },
     handleCurrentChange(val) {
       this.page = val;
@@ -67,10 +67,10 @@ export default {
     "$route.query.tab": function(newVal, oldVal) {
       console.log("tab change:", newVal, oldVal);
       this.currentTab = newVal;
-      this.getList();
+      this.refreshTopics();
     },
     page: function() {
-      this.getList();
+      this.refreshTopics();
     }
   }
 };
